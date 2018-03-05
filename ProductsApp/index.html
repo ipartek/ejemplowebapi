@@ -11,8 +11,8 @@
     </div>
     <div>
         <h2>Search by ID</h2>
-        <input type="text" id="prodId" size="5" />
-        <input type="button" value="Search" onclick="find();" />
+        <input type="number" id="prodId" size="5" />
+        <input type="button" value="Search" id="btnSearch" />
         <p id="product" />
     </div>
 
@@ -20,7 +20,7 @@
     <script>
     var uri = 'api/products';
 
-    $(document).ready(function () {
+    $(function () {
       // Send an AJAX request
       $.getJSON(uri)
           .done(function (data) {
@@ -29,11 +29,12 @@
               // Add a list item for the product.
               $('<li>', { text: formatItem(item) }).appendTo($('#products'));
             });
-          });
+            });
+        $('#btnSearch').click(find);
     });
 
     function formatItem(item) {
-      return item.Name + ': $' + item.Price;
+      return item.Name + ': ' + item.Price + ' €';
     }
 
     function find() {
